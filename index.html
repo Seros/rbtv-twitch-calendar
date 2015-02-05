@@ -105,10 +105,7 @@
           dataType: 'jsonp',
           success: function(data) {
             $($div).append('<div class="media-left"><img src="' + data.stream.channel.logo + '" class="media-object" style="width:64px;"/></div');
-            $($div).append('<div class="media-body">');
-            $($div).append('<h4 class="media-title">' + data.stream.channel.status + '</h4>');
-            $($div).append('<p>Spiel: '+data.stream.game+'<br />Viewer: '+data.stream.viewers+'<br />Follower: '+data.stream.channel.followers+'<br />Views: '+data.stream.channel.views+'</p>');
-            $($div).append('</div>');
+            $($div).append('<div class="media-body"><h4 class="media-title">' + data.stream.channel.status + '</h4>Spiel: '+data.stream.game+'<br />Viewer: '+data.stream.viewers+'<br />Follower: '+data.stream.channel.followers+'<br />Views: '+data.stream.channel.views+'</div>');
           },
           error: function(xhr, status) {
             $($div).append('<li><p class="text-danger">' + status + ' : ' + defaults.errorMsg + '</p></li>');
