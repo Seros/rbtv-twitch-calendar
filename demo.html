@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,6 +16,19 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <style type="text/css">
+    #fb-root {
+      display: none;
+    }
+    .fb_iframe_widget,
+    .fb_iframe_widget span,
+    .fb_iframe_widget span iframe[style] {
+      width: 100% !important;
+    }
+    #twitter-widget-0 {
+      width: 100%;
+    }
+  </style>
 </head>
 
 <body style="padding-top: 50px;">
@@ -51,6 +65,9 @@
               var summary = item.summary || '';
               var eventDate = formatDate(eventdate, defaults.dateFormat.trim());
               var cssclass = '';
+              if (i == 0) {
+                document.title = summary + ' - RocketBeansTV - Twitch';
+              }
               if (i == 1) {
                 cssclass = ' class="hidden-xs hidden-sm"';
               }
@@ -58,7 +75,7 @@
                 cssclass = ' class="hidden-xs hidden-sm hidden-md"';
               }
               s = eventDate + ': ' + summary;
-              $($div).append('<li'+cssclass+'><p class="navbar-text">' + s + '</p></li>');
+              $($div).append('<li' + cssclass + '><p class="navbar-text">' + s + '</p></li>');
               i = i + 1;
             });
           },
@@ -151,7 +168,7 @@
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-3">
-        <div class="fb-like-box" data-href="https://www.facebook.com/RocketBeansTV" data-colorscheme="dark" data-show-faces="false" data-header="false" data-stream="true" data-show-border="false"></div>
+        <div class="fb-like-box" data-href="https://www.facebook.com/RocketBeansTV" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="true" data-show-border="false"></div>
       </div>
       <div class="col-xs-12 col-sm-6 col-md-3">
         <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/TheRocketBeans" data-widget-id="563080552103051264">Tweets von @TheRocketBeans </a>
@@ -175,4 +192,5 @@
     </div>
   </div>
 </body>
+
 </html>
