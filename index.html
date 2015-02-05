@@ -39,20 +39,15 @@
         var defaults = $.extend({
             calendarId: 'h6tfehdpu3jrbcrn9sdju9ohj8@group.calendar.google.com',
             apiKey: 'AIzaSyDxJQyT58HkvA_pisq1Us_bSObrR6doJPA',
-            dateFormat: 'ShortTime',
             errorMsg: 'Keine zukünftigen Events im RBTV Kalender',
             maxEvents: 3,
-            futureEventsOnly: true,
           },
           options);
 
         var s = '';
         var feedUrl = 'https://www.googleapis.com/calendar/v3/calendars/' +
           encodeURIComponent(defaults.calendarId.trim()) + '/events?key=' + defaults.apiKey +
-          '&orderBy=startTime&singleEvents=true';
-        if (defaults.futureEventsOnly) {
-          feedUrl += '&timeMin=' + new Date().toISOString();
-        }
+          '&orderBy=startTime&singleEvents=true&timeMin=' + new Date().toISOString();
 
         $.ajax({
           url: feedUrl,
@@ -61,9 +56,8 @@
             data.items = data.items.slice(0, defaults.maxEvents);
             var i = 0
             $.each(data.items, function(e, item) {
-              var eventdate = item.start.dateTime || item.start.date || '';
+              var eventDate = item.start.dateTime || item.start.date || '';
               var summary = item.summary || '';
-              var eventDate = formatDate(eventdate, defaults.dateFormat.trim());
               var cssclass = '';
               if (i == 0) {
                 document.title = summary + ' - RocketBeansTV - Twitch';
@@ -74,7 +68,7 @@
               if (i == 2) {
                 cssclass = ' class="hidden-xs hidden-sm hidden-md"';
               }
-              s = eventDate + ': ' + summary;
+              s = formatDate(eventDate) + ': ' + summary;
               $($div).append('<li' + cssclass + '><p class="navbar-text">' + s + '</p></li>');
               i = i + 1;
             });
@@ -95,15 +89,46 @@
           return time;
         }
       };
+      $.fn.twitchReader = function(options) {
+        var $div = $(this);
+        var defaults = $.extend({
+            streamer: 'rocketbeanstv',
+            errorMsg: 'Streamer nicht gefunden.'
+          },
+          options);
+        var feedUrl = 'https://api.twitch.tv/kraken/streams/' + defaults.streamer;
+
+        $.ajax({
+          url: feedUrl,
+          type: 'GET',
+          crossDomain: true,
+          dataType: 'jsonp',
+          success: function(data) {
+            $($div).append('<div class="media-left"><img src="' + data.stream.channel.logo + '" class="media-object" style="width:64px;"/></div');
+            $($div).append('<div class="media-body">');
+            $($div).append('<h4 class="media-title">' + data.stream.channel.status + '</h4>');
+            $($div).append('<p>Spiel: '+data.stream.game+'<br />Viewer: '+data.stream.viewers+'<br />Follower: '+data.stream.channel.followers+'<br />Views: '+data.stream.channel.views+'</p>');
+            $($div).append('</div>');
+          },
+          error: function(xhr, status) {
+            $($div).append('<li><p class="text-danger">' + status + ' : ' + defaults.errorMsg + '</p></li>');
+          }
+        });
+      };
     }(jQuery));
   </script>
   <script type="text/javascript">
     jQuery(function($) {
       $('#eventlist').gCalReader();
+      $('#twichinfo').twitchReader();
       setInterval(function() {
         $('#eventlist').empty();
         $('#eventlist').gCalReader();
       }, 300000);
+      setInterval(function() {
+        $('#twitchinfo').empty();
+        $('#twitchinfo').twitchReader();
+      }, 60000);
     });
   </script>
   <div id="fb-root"></div>
@@ -186,6 +211,8 @@
         </script>
       </div>
       <div class="hidden-xs hidden-sm col-md-4">
+        <div id="twichinfo" class="media">
+        </div>
       </div>
     </div>
   </div>
