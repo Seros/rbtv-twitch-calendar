@@ -53,6 +53,7 @@
           url: feedUrl,
           dataType: 'json',
           success: function(data) {
+            $($div).append('<li><a href="https://www.google.com/calendar/embed?src='+encodeURIComponent(defaults.calendarId.trim())+'"><i class="fa fa-list"></i></a></li>');
             data.items = data.items.slice(0, defaults.maxEvents);
             var i = 0
             $.each(data.items, function(e, item) {
