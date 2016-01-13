@@ -2,218 +2,221 @@
 <html lang="de">
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="icon" href="http://rocketbeans.tv/wp-content/themes/_srb-theme/icons/favicon.ico" type="image/x-icon">
-  <title>RocketBeansTV - Twitch</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.2/cyborg/bootstrap.min.css">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="http://www.rocketbeans.tv/wp-content/themes/rocket-beans/assets/img/favicon.ico" rel="shortcut icon">
+    <link href="http://www.rocketbeans.tv/wp-content/themes/rocket-beans/img/icons/touch.png" rel="apple-touch-icon-precomposed">
+    <title>RocketBeansTV - Twitch</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.2/cyborg/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <style type="text/css">
-    #fb-root {
-      display: none;
-    }
-    .fb_iframe_widget,
-    .fb_iframe_widget span,
-    .fb_iframe_widget span iframe[style] {
-      width: 100% !important;
-    }
-    #twitter-widget-0 {
-      width: 100%;
-    }
-  </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <style type="text/css">
+        #fb-root {
+            display: none;
+        }
+
+        .fb_iframe_widget,
+        .fb_iframe_widget span,
+        .fb_iframe_widget span iframe[style] {
+            width: 100% !important;
+        }
+
+        #twitter-widget-0 {
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body style="padding-top: 50px;">
-  <script type="text/javascript">
-    (function($) {
-      $.fn.gCalReader = function(options) {
-        var $div = $(this);
-        var defaults = $.extend({
-            calendarId: 'h6tfehdpu3jrbcrn9sdju9ohj8@group.calendar.google.com',
-            apiKey: 'AIzaSyDxJQyT58HkvA_pisq1Us_bSObrR6doJPA',
-            errorMsg: 'Keine zukünftigen Events im RBTV Kalender',
-            maxEvents: 3,
-          },
-          options);
+<script type="text/javascript">
+    (function ($) {
+        $.fn.gCalReader = function (options) {
+            var $div = $(this);
+            var defaults = $.extend({
+                        calendarId: 'h6tfehdpu3jrbcrn9sdju9ohj8@group.calendar.google.com',
+                        apiKey: 'AIzaSyDxJQyT58HkvA_pisq1Us_bSObrR6doJPA',
+                        errorMsg: 'Keine zukünftigen Events im RBTV Kalender',
+                        maxEvents: 3,
+                    },
+                    options);
 
-        var s = '';
-        var feedUrl = 'https://www.googleapis.com/calendar/v3/calendars/' +
-          encodeURIComponent(defaults.calendarId.trim()) + '/events?key=' + defaults.apiKey +
-          '&orderBy=startTime&singleEvents=true&timeMin=' + new Date().toISOString();
+            var s = '';
+            var feedUrl = 'https://www.googleapis.com/calendar/v3/calendars/' +
+                    encodeURIComponent(defaults.calendarId.trim()) + '/events?key=' + defaults.apiKey +
+                    '&orderBy=startTime&singleEvents=true&timeMin=' + new Date().toISOString();
 
-        $.ajax({
-          url: feedUrl,
-          dataType: 'json',
-          success: function(data) {
-            $($div).append('<li><a href="https://www.google.com/calendar/embed?src='+encodeURIComponent(defaults.calendarId.trim())+'"><i class="fa fa-list"></i></a></li>');
-            data.items = data.items.slice(0, defaults.maxEvents);
-            var i = 0
-            $.each(data.items, function(e, item) {
-              var eventDate = item.start.dateTime || item.start.date || '';
-              var summary = item.summary || '';
-              var cssclass = '';
-              if (i == 0) {
-                document.title = summary + ' - RocketBeansTV - Twitch';
-              }
-              if (i == 1) {
-                cssclass = ' class="hidden-xs hidden-sm"';
-              }
-              if (i == 2) {
-                cssclass = ' class="hidden-xs hidden-sm hidden-md"';
-              }
-              s = formatDate(eventDate) + ': ' + summary;
-              $($div).append('<li' + cssclass + '><p class="navbar-text">' + s + '</p></li>');
-              i = i + 1;
+            $.ajax({
+                url: feedUrl,
+                dataType: 'json',
+                success: function (data) {
+                    $($div).append('<li><a href="https://www.google.com/calendar/embed?src=' + encodeURIComponent(defaults.calendarId.trim()) + '"><i class="fa fa-list"></i></a></li>');
+                    data.items = data.items.slice(0, defaults.maxEvents);
+                    var i = 0
+                    $.each(data.items, function (e, item) {
+                        var eventDate = item.start.dateTime || item.start.date || '';
+                        var summary = item.summary || '';
+                        var cssclass = '';
+                        if (i == 0) {
+                            document.title = summary + ' - RocketBeansTV - Twitch';
+                        }
+                        if (i == 1) {
+                            cssclass = ' class="hidden-xs hidden-sm"';
+                        }
+                        if (i == 2) {
+                            cssclass = ' class="hidden-xs hidden-sm hidden-md"';
+                        }
+                        s = formatDate(eventDate) + ': ' + summary;
+                        $($div).append('<li' + cssclass + '><p class="navbar-text">' + s + '</p></li>');
+                        i = i + 1;
+                    });
+                },
+                error: function (xhr, status) {
+                    $($div).append('<li><p class="text-danger">' + status + ' : ' + defaults.errorMsg + '</p></li>');
+                }
             });
-          },
-          error: function(xhr, status) {
-            $($div).append('<li><p class="text-danger">' + status + ' : ' + defaults.errorMsg + '</p></li>');
-          }
-        });
 
-        function formatDate(strDate, strFormat) {
-          var arrDate, time;
-          if (strDate.length > 10) {
-            arrDate = /(\d+)\-(\d+)\-(\d+)T(\d+)\:(\d+)/.exec(strDate);
-            time = parseInt(arrDate[4]) + ':' + arrDate[5];
-          } else {
-            time = '';
-          }
-          return time;
-        }
-      };
-      $.fn.twitchReader = function(options) {
-        var $div = $(this);
-        var defaults = $.extend({
-            streamer: 'rocketbeanstv',
-            errorMsg: 'Streamer nicht gefunden.'
-          },
-          options);
-        var feedUrl = 'https://api.twitch.tv/kraken/streams/' + defaults.streamer;
-
-        $.ajax({
-          url: feedUrl,
-          type: 'GET',
-          crossDomain: true,
-          dataType: 'jsonp',
-          success: function(data) {
-            $($div).append('<div class="media-left"><img src="' + data.stream.channel.logo + '" class="media-object" style="width:64px;"/></div');
-            $($div).append('<div class="media-body"><h4 class="media-title">' + data.stream.channel.status + '</h4>Spiel: '+data.stream.game+'<br />Viewer: '+data.stream.viewers+'<br />Follower: '+data.stream.channel.followers+'<br />Views: '+data.stream.channel.views+'</div>');
-          },
-          error: function(xhr, status) {
-            $($div).append('<li><p class="text-danger">' + status + ' : ' + defaults.errorMsg + '</p></li>');
-          }
-        });
-      };
-    }(jQuery));
-  </script>
-  <script type="text/javascript">
-    jQuery(function($) {
-      $('#eventlist').gCalReader();
-      $('#twitchinfo').twitchReader();
-      setInterval(function() {
-        $('#eventlist').empty();
-        $('#eventlist').gCalReader();
-      }, 300000);
-      setInterval(function() {
-        $('#twitchinfo').empty();
-        $('#twitchinfo').twitchReader();
-      }, 60000);
-    });
-  </script>
-  <div id="fb-root"></div>
-  <script>
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.0";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="http://rocketbeans.tv" style="padding: 5px 15px;">
-          <img src="http://rocketbeans.tv/wp-content/themes/_srb-theme/img/mini_logo.png" style="height: 40px;">
-        </a>
-      </div>
-      <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav" id="eventlist"></ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="http://rocketbeans.tv/"><i class="fa fa-globe"></i></a>
-          </li>
-          <li><a href="https://www.facebook.com/RocketBeansTV"><i class="fa fa-facebook"></i></a>
-          </li>
-          <li><a href="https://twitter.com/TheRocketBeans"><i class="fa fa-twitter"></i></a>
-          </li>
-          <li><a href="https://www.youtube.com/user/ROCKETBEANSTV"><i class="fa fa-youtube"></i></a>
-          </li>
-          <li><a href="https://plus.google.com/+ROCKETBEANSTV/posts"><i class="fa fa-google-plus"></i></a>
-          </li>
-          <li><a href="http://www.twitch.tv/rocketbeanstv"><i class="fa fa-twitch"></i></a>
-          </li>
-          <li><a href="http://www.reddit.com/r/rocketbeans/"><i class="fa fa-reddit"></i></a>
-          </li>
-          <li><a href="http://rocketbeans-shop.de/"><i class="fa fa-shopping-cart"></i></a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-9" style="padding: 0;">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="http://www.twitch.tv/rocketbeanstv/embed"></iframe>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-3" style="padding: 0;">
-        <div class="embed-responsive embed-responsive-4by3" style="padding-bottom:169%;">
-          <iframe class="embed-responsive-item" src="http://twitch.tv/chat/embed?channel=rocketbeanstv&amp;popout_chat=true"></iframe>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 col-md-4" style="background-color: #fff;">
-        <div class="fb-like-box" data-href="https://www.facebook.com/RocketBeansTV" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="true" data-show-border="false" data-height="600"></div>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-4">
-        <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/TheRocketBeans" data-widget-id="563080552103051264">Tweets von @TheRocketBeans </a>
-        <script>
-          ! function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0],
-              p = /^http:/.test(d.location) ? 'http' : 'https';
-            if (!d.getElementById(id)) {
-              js = d.createElement(s);
-              js.id = id;
-              js.src = p + "://platform.twitter.com/widgets.js";
-              fjs.parentNode.insertBefore(js, fjs);
+            function formatDate(strDate, strFormat) {
+                var arrDate, time;
+                if (strDate.length > 10) {
+                    arrDate = /(\d+)\-(\d+)\-(\d+)T(\d+)\:(\d+)/.exec(strDate);
+                    time = parseInt(arrDate[4]) + ':' + arrDate[5];
+                } else {
+                    time = '';
+                }
+                return time;
             }
-          }(document, "script", "twitter-wjs");
-        </script>
-      </div>
-      <div class="hidden-xs hidden-sm col-md-4">
-        <div id="twitchinfo" class="media">
+        };
+        $.fn.twitchReader = function (options) {
+            var $div = $(this);
+            var defaults = $.extend({
+                        streamer: 'rocketbeanstv',
+                        errorMsg: 'Streamer nicht gefunden.'
+                    },
+                    options);
+            var feedUrl = 'https://api.twitch.tv/kraken/streams/' + defaults.streamer;
+
+            $.ajax({
+                url: feedUrl,
+                type: 'GET',
+                crossDomain: true,
+                dataType: 'jsonp',
+                success: function (data) {
+                    $($div).append('<div class="media-left"><img src="' + data.stream.channel.logo + '" class="media-object" style="width:64px;"/></div>');
+                    $($div).append('<div class="media-body"><h4 class="media-title">' + data.stream.channel.status + '</h4>Spiel: ' + data.stream.game + '<br />Viewer: ' + data.stream.viewers + '<br />Follower: ' + data.stream.channel.followers + '<br />Views: ' + data.stream.channel.views + '</div>');
+                },
+                error: function (xhr, status) {
+                    $($div).append('<li><p class="text-danger">' + status + ' : ' + defaults.errorMsg + '</p></li>');
+                }
+            });
+        };
+    }(jQuery));
+</script>
+<script type="text/javascript">
+    jQuery(function ($) {
+        $('#eventlist').gCalReader();
+        $('#twitchinfo').twitchReader();
+        setInterval(function () {
+            $('#eventlist').empty();
+            $('#eventlist').gCalReader();
+        }, 300000);
+        setInterval(function () {
+            $('#twitchinfo').empty();
+            $('#twitchinfo').twitchReader();
+        }, 60000);
+    });
+</script>
+<div id="fb-root"></div>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://rocketbeans.tv" style="padding: 5px 15px;">
+                <img src="http://rocketbeans.tv/wp-content/themes/_srb-theme/img/mini_logo.png" style="height: 40px;">
+            </a>
         </div>
-      </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" id="eventlist"></ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://rocketbeans.tv/"><i class="fa fa-globe"></i></a>
+                </li>
+                <li><a href="https://www.facebook.com/RocketBeansTV"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li><a href="https://twitter.com/TheRocketBeans"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li><a href="https://www.youtube.com/user/ROCKETBEANSTV"><i class="fa fa-youtube"></i></a>
+                </li>
+                <li><a href="https://plus.google.com/+ROCKETBEANSTV/posts"><i class="fa fa-google-plus"></i></a>
+                </li>
+                <li><a href="http://www.twitch.tv/rocketbeanstv"><i class="fa fa-twitch"></i></a>
+                </li>
+                <li><a href="http://www.reddit.com/r/rocketbeans/"><i class="fa fa-reddit"></i></a>
+                </li>
+                <li><a href="http://rocketbeans-shop.de/"><i class="fa fa-shopping-cart"></i></a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-9" style="padding: 0;">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="http://www.twitch.tv/rocketbeanstv/embed"></iframe>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3" style="padding: 0;">
+            <div class="embed-responsive embed-responsive-4by3" style="padding-bottom:169%;">
+                <iframe class="embed-responsive-item" src="http://twitch.tv/chat/embed?channel=rocketbeanstv&amp;popout_chat=true"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4" style="background-color: #fff;">
+            <div class="fb-like-box" data-href="https://www.facebook.com/RocketBeansTV" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="true" data-show-border="false" data-height="600"></div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/TheRocketBeans" data-widget-id="563080552103051264">Tweets von @TheRocketBeans </a>
+            <script>
+                !function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0],
+                            p = /^http:/.test(d.location) ? 'http' : 'https';
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = p + "://platform.twitter.com/widgets.js";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, "script", "twitter-wjs");
+            </script>
+        </div>
+        <div class="hidden-xs hidden-sm col-md-4">
+            <div id="twitchinfo" class="media">
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 </html>
