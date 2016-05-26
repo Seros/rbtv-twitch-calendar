@@ -17,21 +17,6 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <style type="text/css">
-        #fb-root {
-            display: none;
-        }
-
-        .fb_iframe_widget,
-        .fb_iframe_widget span,
-        .fb_iframe_widget span iframe[style] {
-            width: 100% !important;
-        }
-
-        #twitter-widget-0 {
-            width: 100%;
-        }
-    </style>
 </head>
 
 <body style="padding-top: 50px;">
@@ -139,7 +124,7 @@
         if (d.getElementById(id)) return;
         js = d.createElement(s);
         js.id = id;
-        js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.0";
+        js.src = "//connect.facebook.net/de_DE/sdk.js#xfbml=1&version=v2.6";
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 </script>
@@ -194,7 +179,11 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-4" style="background-color: #fff;">
-            <div class="fb-like-box" data-href="https://www.facebook.com/RocketBeansTV" data-colorscheme="light" data-show-faces="false" data-header="false" data-stream="true" data-show-border="false" data-height="600"></div>
+            <div class="fb-page" data-href="https://www.facebook.com/RocketBeansTV" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false" data-width="520" data-height="600">
+                <div class="fb-xfbml-parse-ignore">
+                    <blockquote cite="https://www.facebook.com/RocketBeansTV"><a href="https://www.facebook.com/RocketBeansTV">Rocket Beans TV</a></blockquote>
+                </div>
+            </div>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-4">
             <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/TheRocketBeans" data-widget-id="563080552103051264">Tweets von @TheRocketBeans </a>
